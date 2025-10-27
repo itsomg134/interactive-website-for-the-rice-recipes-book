@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete Rice Dishes Recipe Book - 80+ Recipes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        nav {
+            background: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 2px solid #667eea;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .recipe-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #ffecd2;
+            padding-bottom: 0.5rem;
+        }
+
+        .recipe-card h4 {
+            color: #764ba2;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-card p {
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-card .ingredients {
+            background: #f8f9ff;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .recipe-card .instructions {
+            background: #fff8f0;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #f5576c;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.3rem;
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-btn {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+            }
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🍚 The Complete Rice Dishes Recipe Book</h1>
+        <p>80+ Delicious Rice Recipes from Around the World</p>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <button class="category-btn active" data-category="all">All Recipes</button>
+            <button class="category-btn" data-category="asian">Asian</button>
+            <button class="category-btn" data-category="indian">Indian & South Asian</button>
+            <button class="category-btn" data-category="middle-eastern">Middle Eastern</button>
+            <button class="category-btn" data-category="european">European</button>
+            <button class="category-btn" data-category="latin">Latin American</button>
+            <button class="category-btn" data-category="african">African</button>
+            <button class="category-btn" data-category="desserts">Desserts</button>
+        </div>
+    </nav>
+
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="🔍 Search recipes by name or ingredient...">
+    </div>
+
+    <div class="container">
+        <div class="recipes-grid" id="recipesGrid"></div>
+    </div>
+
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <footer>
+        <p>© 2025 The Complete Rice Dishes Recipe Book | Bringing World Flavors to Your Kitchen</p>
+    </footer>
+
+    <script>
+        const recipes = [
+            {
+                name: "Classic Fried Rice",
+                category: "asian",
+                ingredients: "3 cups cooked rice, 2 eggs, 1 cup mixed vegetables, 3 tbsp soy sauce, 2 tbsp oil, 2 cloves garlic, 1 onion",
+                instructions: "Heat oil, scramble eggs and set aside. Stir-fry vegetables and garlic, add rice, soy sauce, and eggs. Cook for 5 minutes."
+            },
+            {
+                name: "Chicken Fried Rice",
+                category: "asian",
+                ingredients: "3 cups cooked rice, 2 cups diced chicken, 2 eggs, 1 cup peas and carrots, 3 tbsp soy sauce, 2 tbsp sesame oil, 3 cloves garlic, 2 green onions",
+                instructions: "Cook chicken until golden. Push aside, scramble eggs. Add vegetables, rice, and soy sauce. Toss well and garnish with green onions."
+            },
+            {
+                name: "Shrimp Fried Rice",
+                category: "asian",
+                ingredients: "3 cups cooked rice, 1 lb shrimp (peeled), 2 eggs, 1 cup mixed vegetables, 3 tbsp soy sauce, 2 tbsp oil, 2 cloves garlic",
+                instructions: "Stir-fry shrimp until pink. Remove and set aside. Scramble eggs, add vegetables and rice. Mix in shrimp and soy sauce."
+            },
+            {
+                name: "Japanese Onigiri (Rice Balls)",
+                category: "asian",
+                ingredients: "2 cups Japanese short-grain rice, 1/4 cup rice vinegar, 2 tbsp sugar, nori sheets, filling of choice (salmon, tuna, pickled plum)",
+                instructions: "Mix warm rice with vinegar and sugar. Wet hands with salt water, form rice into triangles with filling in center. Wrap with nori."
+            },
+            {
+                name: "Thai Pineapple Fried Rice",
+                category: "asian",
+                ingredients: "3 cups jasmine rice, 1 cup pineapple chunks, 1/2 cup shrimp, 1/2 cup cashews, 2 eggs, 3 tbsp soy sauce, 2 tbsp curry powder, 2 cloves garlic",
+                instructions: "Scramble eggs, set aside. Fry garlic, add shrimp and curry powder. Add rice, pineapple, cashews, and eggs. Mix well."
+            },
+            {
+                name: "Korean Bibimbap",
+                category: "asian",
+                ingredients: "2 cups rice, 1 cup spinach, 1 cup bean sprouts, 1 carrot (julienned), 1 zucchini, 4 eggs, 1/2 lb beef, gochujang sauce",
+                instructions: "Cook rice. Sauté each vegetable separately. Cook beef with soy sauce. Top rice with vegetables, beef, and fried egg. Serve with gochujang."
+            },
+            {
+                name: "Korean Kimchi Fried Rice",
+                category: "asian",
+                ingredients: "3 cups cooked rice, 1 cup kimchi (chopped), 1/2 lb pork belly, 2 eggs, 2 tbsp kimchi juice, 2 tbsp gochujang, 2 green onions, sesame oil",
+                instructions: "Fry pork belly until crispy. Add kimchi and cook 2 minutes. Add rice, kimchi juice, and gochujang. Fry eggs and place on top."
+            },
+            {
+                name: "Vietnamese Com Tam (Broken Rice)",
+                category: "asian",
+                ingredients: "2 cups broken rice, 1 lb pork chops, 3 tbsp fish sauce, 2 tbsp sugar, 2 cloves garlic, cucumber, tomato, pickled vegetables",
+                instructions: "Marinate pork in fish sauce, sugar, and garlic. Grill until cooked. Cook rice. Serve pork over rice with fresh vegetables and pickles."
+            },
+            {
+                name: "Nasi Goreng (Indonesian Fried Rice)",
+                category: "asian",
+                ingredients: "3 cups rice, 2 eggs, 1 chicken breast, 3 tbsp kecap manis (sweet soy sauce), 2 tbsp sambal oelek, 3 cloves garlic, 2 shallots",
+                instructions: "Fry eggs sunny-side up, set aside. Stir-fry garlic, shallots, and chicken. Add rice, kecap manis, and sambal. Top with fried egg."
+            },
+            {
+                name: "Hainanese Chicken Rice",
+                category: "asian",
+                ingredients: "2 cups jasmine rice, 1 whole chicken, 4 cups chicken broth, 4 cloves garlic, 2-inch ginger, 3 tbsp sesame oil, 2 cucumbers, chili sauce",
+                instructions: "Poach chicken in broth with ginger. Cook rice in chicken fat and broth. Slice chicken, serve with rice, cucumber, and sauces."
+            },
+            {
+                name: "Chicken Biryani",
+                category: "indian",
+                ingredients: "2 cups basmati rice, 1 lb chicken, 1 cup yogurt, 2 onions, 4 cloves garlic, 2-inch ginger, biryani masala, saffron, ghee",
+                instructions: "Marinate chicken in yogurt and spices. Layer partially cooked rice with chicken. Cook on low heat until rice is fluffy and chicken is tender."
+            },
+            {
+                name: "Vegetable Biryani",
+                category: "indian",
+                ingredients: "2 cups basmati rice, 2 cups mixed vegetables, 1/2 cup yogurt, 2 onions, biryani masala, saffron, mint leaves, ghee",
+                instructions: "Sauté vegetables with spices. Layer with partially cooked rice. Add saffron milk and ghee. Cook covered on low heat."
+            },
+            {
+                name: "Mutton Biryani",
+                category: "indian",
+                ingredients: "2 cups basmati rice, 1 lb mutton, 1 cup yogurt, 2 onions, ginger-garlic paste, biryani spices, saffron, fried onions",
+                instructions: "Marinate mutton overnight. Cook mutton until tender. Layer with rice, saffron, and fried onions. Dum cook for 30 minutes."
+            },
+            {
+                name: "Jeera Rice (Cumin Rice)",
+                category: "indian",
+                ingredients: "2 cups basmati rice, 2 tbsp cumin seeds, 2 tbsp ghee, 4 cups water, salt",
+                instructions: "Heat ghee, add cumin seeds until they splutter. Add rice and water. Cook until rice is done."
+            },
+            {
+                name: "Lemon Rice",
+                category: "indian",
+                ingredients: "3 cups cooked rice, 2 lemons (juiced), 2 tbsp oil, 1 tsp mustard seeds, 1 tsp urad dal, curry leaves, turmeric, peanuts, salt",
+                instructions: "Temper mustard seeds, urad dal, and curry leaves. Add turmeric, peanuts, and rice. Mix in lemon juice."
+            },
+            {
+                name: "Curd Rice (Yogurt Rice)",
+                category: "indian",
+                ingredients: "2 cups cooked rice, 1.5 cups yogurt, 1/2 cup milk, 1 tsp mustard seeds, 1 tsp urad dal, curry leaves, ginger, coriander",
+                instructions: "Mash rice with yogurt and milk. Temper mustard seeds, urad dal, and curry leaves. Mix with rice. Garnish with ginger and coriander."
+            },
+            {
+                name: "Tamarind Rice",
+                category: "indian",
+                ingredients: "3 cups cooked rice, 3 tbsp tamarind paste, 2 tbsp oil, 1 tsp mustard seeds, peanuts, curry leaves, red chilies, turmeric",
+                instructions: "Temper mustard seeds, peanuts, curry leaves, and chilies. Add tamarind paste and turmeric. Mix with rice."
+            },
+            {
+                name: "Coconut Rice",
+                category: "indian",
+                ingredients: "2 cups rice, 1 cup coconut (grated), 2 tbsp oil, 1 tsp mustard seeds, urad dal, curry leaves, green chilies, cashews",
+                instructions: "Cook rice. Temper mustard seeds, urad dal, curry leaves, chilies, and cashews. Add coconut and rice. Mix well."
+            },
+            {
+                name: "Khichdi (Rice and Lentil)",
+                category: "indian",
+                ingredients: "1 cup rice, 1 cup moong dal (split mung beans), 1 tsp cumin seeds, turmeric, ghee, salt, 5 cups water",
+                instructions: "Wash rice and dal. Heat ghee, add cumin seeds. Add rice, dal, turmeric, water, and salt. Cook until soft and mushy."
+            },
+            {
+                name: "Kashmiri Pulao",
+                category: "indian",
+                ingredients: "2 cups basmati rice, 1/2 cup mixed dry fruits (cashews, almonds, raisins), 1/4 cup ghee, saffron, cardamom, cinnamon, sugar",
+                instructions: "Fry dry fruits in ghee. Add rice, water, saffron, and spices. Cook until rice is fluffy. Garnish with dry fruits."
+            },
+            {
+                name: "Kabsa (Saudi Rice)",
+                category: "middle-eastern",
+                ingredients: "2 cups basmati rice, 1 lb chicken, 2 tomatoes, 2 onions, kabsa spices, raisins, almonds, 4 cups chicken broth",
+                instructions: "Cook chicken with onions and spices. Add rice and broth. Cook until rice is fluffy. Garnish with raisins and almonds."
+            },
+            {
+                name: "Mandi Rice",
+                category: "middle-eastern",
+                ingredients: "2 cups basmati rice, 1 whole chicken, mandi spices, 4 cups broth, fried onions, raisins",
+                instructions: "Marinate chicken in mandi spices. Cook chicken. Cook rice in chicken broth. Serve chicken over rice with fried onions."
+            },
+            {
+                name: "Persian Tahdig (Crispy Rice)",
+                category: "middle-eastern",
+                ingredients: "2 cups basmati rice, 4 tbsp butter, 1/4 cup yogurt, saffron, salt, 1 potato (sliced thin)",
+                instructions: "Parboil rice. Layer potato slices in pot with butter. Add rice mixed with yogurt and saffron. Cook on low heat until bottom is crispy."
+            },
+            {
+                name: "Jeweled Rice",
+                category: "middle-eastern",
+                ingredients: "2 cups basmati rice, 1/2 cup barberries, 1/2 cup pistachios, 1/4 cup almonds, saffron, sugar, orange zest, butter",
+                instructions: "Cook rice with saffron. Sauté barberries with sugar. Mix rice with nuts, barberries, and orange zest."
+            },
+            {
+                name: "Mejadra (Lentils and Rice)",
+                category: "middle-eastern",
+                ingredients: "1 cup rice, 1 cup lentils, 3 onions (caramelized), cumin, 4 cups water, olive oil, salt",
+                instructions: "Cook lentils until tender. Add rice and water. Cook until rice is done. Top with caramelized onions."
+            },
+            {
+                name: "Lebanese Rice with Vermicelli",
+                category: "middle-eastern",
+                ingredients: "2 cups rice, 1/2 cup vermicelli noodles, 3 tbsp butter, 3.5 cups water, salt",
+                instructions: "Brown vermicelli in butter. Add rice and water. Cook covered until rice is fluffy."
+            },
+            {
+                name: "Spanish Paella",
+                category: "european",
+                ingredients: "2 cups bomba rice, 1 lb mixed seafood, 1 chicken breast, 1/2 lb chorizo, saffron, 4 cups stock, peas, red peppers, garlic",
+                instructions: "Sauté chicken and chorizo. Add rice, saffron, and stock. Arrange seafood and vegetables on top. Cook without stirring until rice is done."
+            },
+            {
+                name: "Seafood Paella",
+                category: "european",
+                ingredients: "2 cups rice, 1 lb shrimp, 1 lb mussels, 1/2 lb squid, saffron, 4 cups fish stock, garlic, paprika, lemon",
+                instructions: "Sauté garlic and paprika. Add rice and saffron stock. Arrange seafood on top. Cook until rice absorbs liquid and seafood is cooked."
+            },
+            {
+                name: "Italian Risotto Milanese",
+                category: "european",
+                ingredients: "2 cups arborio rice, 6 cups chicken stock (warm), 1 cup white wine, 1 onion, saffron, 1/2 cup parmesan, butter",
+                instructions: "Sauté onion in butter. Add rice and toast. Add wine. Gradually add stock, stirring constantly. Finish with saffron, butter, and parmesan."
+            },
+            {
+                name: "Mushroom Risotto",
+                category: "european",
+                ingredients: "2 cups arborio rice, 2 cups mushrooms, 6 cups stock, 1 cup white wine, 1 onion, garlic, parmesan, butter, parsley",
+                instructions: "Sauté mushrooms and set aside. Sauté onion and garlic. Add rice, wine, then stock gradually while stirring. Add mushrooms, parmesan, and butter."
+            },
+            {
+                name: "Arancini (Italian Rice Balls)",
+                category: "european",
+                ingredients: "3 cups cooked risotto, 1 cup mozzarella (cubed), 1 cup breadcrumbs, 2 eggs, flour, oil for frying",
+                instructions: "Form risotto into balls with mozzarella center. Coat in flour, egg, then breadcrumbs. Deep fry until golden."
+            },
+            {
+                name: "Mexican Rice",
+                category: "latin",
+                ingredients: "2 cups long-grain rice, 2 cups tomato sauce, 2 cups chicken broth, 1 onion, 2 cloves garlic, cumin, 2 tbsp oil",
+                instructions: "Toast rice in oil until golden. Add onion and garlic. Add tomato sauce, broth, and cumin. Cover and cook until rice is tender."
+            },
+            {
+                name: "Arroz con Pollo (Chicken with Rice)",
+                category: "latin",
+                ingredients: "2 cups rice, 1 lb chicken pieces, 1 cup tomatoes, 1 bell pepper, 1 onion, saffron, peas, 3 cups chicken broth, garlic",
+                instructions: "Brown chicken. Sauté vegetables. Add rice, saffron, and broth. Nestle chicken in rice. Cook covered until done."
+            },
+            {
+                name: "Cuban Black Beans and Rice",
+                category: "latin",
+                ingredients: "2 cups rice, 1 can black beans, 1 onion, 2 cloves garlic, cumin, oregano, bay leaf, lime, cilantro",
+                instructions: "Cook rice. Sauté onion and garlic. Add beans with liquid and spices. Simmer. Serve beans over rice with lime and cilantro."
+            },
+            {
+                name: "Puerto Rican Arroz con Gandules",
+                category: "latin",
+                ingredients: "2 cups rice, 1 can pigeon peas, 1/2 lb pork, sofrito, tomato sauce, olives, capers, 3 cups broth, annatto oil",
+                instructions: "Brown pork. Add sofrito and tomato sauce. Add rice, peas, olives, and broth. Cook covered until rice is tender."
+            },
+            {
+                name: "Colombian Arroz con Coco (Coconut Rice)",
+                category: "latin",
+                ingredients: "2 cups rice, 2 cups coconut milk, 1 cup water, 2 tbsp sugar, raisins, salt",
+                instructions: "Reduce coconut milk until brown bits form. Add water, sugar, and salt. Add rice. Cook until tender. Mix in raisins."
+            },
+            {
+                name: "Jollof Rice",
+                category: "african",
+                ingredients: "2 cups long-grain rice, 1 can tomato paste, 2 tomatoes, 2 onions, 3 cups stock, scotch bonnet pepper, curry powder, thyme, bay leaves",
+                instructions: "Blend tomatoes and onions. Fry tomato paste and blended mixture. Add stock and spices. Add rice and cook covered until tender."
+            },
+            {
+                name: "Nigerian Fried Rice",
+                category: "african",
+                ingredients: "3 cups cooked rice, mixed vegetables (carrots, peas, green beans, corn), 1 lb chicken, 2 tbsp curry powder, thyme, bay leaves, 1 onion",
+                instructions: "Cook rice with curry and thyme. Fry chicken. Stir-fry vegetables. Mix rice, chicken, and vegetables together."
+            },
+            {
+                name: "South African Yellow Rice",
+                category: "african",
+                ingredients: "2 cups rice, 1 tsp turmeric, 1/2 cup raisins, 2 tbsp sugar, 1 cinnamon stick, 4 cups water, butter, salt",
+                instructions: "Cook rice with turmeric, cinnamon, sugar, and salt. Mix in raisins and butter before serving."
+            },
+            {
+                name: "Egyptian Koshari",
+                category: "african",
+                ingredients: "1 cup rice, 1 cup lentils, 1 cup pasta, 2 onions (fried crispy), tomato sauce, chickpeas, garlic vinegar sauce",
+                instructions: "Cook rice, lentils, and pasta separately. Layer in bowl. Top with tomato sauce, chickpeas, fried onions, and garlic sauce."
+            },
+            {
+                name: "Rice Pudding (Kheer)",
+                category: "desserts",
+                ingredients: "1/2 cup rice, 4 cups milk, 1/2 cup sugar, cardamom, saffron, almonds, pistachios, raisins",
+                instructions: "Cook rice in milk until soft. Add sugar and cardamom. Simmer until thick. Garnish with saffron and nuts."
+            },
+            {
+                name: "Rice Pudding (Western Style)",
+                category: "desserts",
+                ingredients: "1 cup rice, 4 cups milk, 1/2 cup sugar, 1 tsp vanilla, cinnamon, raisins",
+                instructions: "Cook rice in milk on low heat. Add sugar and vanilla. Cook until creamy. Serve warm or cold with cinnamon."
+            },
+            {
+                name: "Zarda (Sweet Rice)",
+                category: "desserts",
+                ingredients: "2 cups basmati rice, 1 cup sugar, saffron, cardamom, ghee, food color, mixed nuts, raisins",
+                instructions: "Cook rice. Fry nuts in ghee. Mix rice with sugar, saffron, cardamom, and color. Garnish with nuts and raisins."
+            },
+            {
+                name: "Thai Mango Sticky Rice",
+                category: "desserts",
+                ingredients: "2 cups sticky rice, 1 cup coconut milk, 1/4 cup sugar, salt, 2 ripe mangoes",
+                instructions: "Soak and steam sticky rice. Heat coconut milk with sugar and salt. Pour over rice. Serve with sliced mango."
+            },
+            {
+                name: "Filipino Biko (Sweet Sticky Rice)",
+                category: "desserts",
+                ingredients: "2 cups glutinous rice, 2 cups coconut milk, 1 cup brown sugar, ginger",
+                instructions: "Cook rice in coconut milk. Add brown sugar and ginger. Cook until thick and sticky. Press into pan and cool."
+            },
+            {
+                name: "Champorado (Chocolate Rice Porridge)",
+                category: "desserts",
+                ingredients: "1 cup glutinous rice, 4 cups water, 1/2 cup cocoa powder, 1/2 cup sugar, evaporated milk",
+                instructions: "Cook rice in water until soft. Add cocoa powder and sugar. Simmer until thick. Serve with evaporated milk."
+            },
+            {
+                name: "Chinese Congee (Rice Porridge)",
+                category: "asian",
+                ingredients: "1 cup rice, 8 cups water or stock, ginger, toppings (century egg, pork, green onions, peanuts, fried dough)",
+                instructions: "Cook rice in water with ginger until very soft and porridge-like. Top with desired toppings."
+            },
+            {
+                name: "Japanese Ochazuke",
+                category: "asian",
+                ingredients: "2 cups cooked rice, 4 cups green tea or dashi, salmon, nori, wasabi, sesame seeds, pickled vegetables",
+                instructions: "Place rice in bowl. Top with salmon and nori. Pour hot tea over rice. Add wasabi and sesame seeds."
+            },
+            {
+                name: "Korean Gimbap (Rice Rolls)",
+                category: "asian",
+                ingredients: "4 cups cooked rice, 2 tbsp sesame oil, nori sheets, cucumber, carrot, spinach, pickled radish, egg, ham",
+                instructions: "Season rice with sesame oil. Lay nori, spread rice, add fillings in a line. Roll tightly and slice."
+            },
+            {
+                name: "Filipino Arroz Caldo",
+                category: "asian",
+                ingredients: "1 cup rice, 1 lb chicken, 8 cups chicken broth, ginger, garlic, fish sauce, green onions, boiled eggs",
+                instructions: "Sauté ginger and garlic. Add chicken and brown. Add rice and broth. Cook until thick. Garnish with eggs and green onions."
+            }
+        ];
+
+        const recipesGrid = document.getElementById('recipesGrid');
+        const searchBox = document.querySelector('.search-box');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        // Initialize the app
+        function init() {
+            displayRecipes(recipes);
+            setupEventListeners();
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Category filter buttons
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.dataset.category;
+                    filterRecipes();
+                });
+            });
+
+            // Search functionality
+            searchBox.addEventListener('input', (e) => {
+                currentSearch = e.target.value.toLowerCase();
+                filterRecipes();
+            });
+
+            // Scroll to top button
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Show/hide scroll to top button
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+        }
+
+        // Filter recipes based on category and search term
+        function filterRecipes() {
+            let filteredRecipes = recipes;
+
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filteredRecipes = filteredRecipes.filter(recipe => recipe.category === currentCategory);
+            }
+
+            // Filter by search term
+            if (currentSearch) {
+                filteredRecipes = filteredRecipes.filter(recipe => 
+                    recipe.name.toLowerCase().includes(currentSearch) || 
+                    recipe.ingredients.toLowerCase().includes(currentSearch)
+                );
+            }
+
+            displayRecipes(filteredRecipes);
+        }
+
+        // Display recipes in the grid
+        function displayRecipes(recipesToDisplay) {
+            if (recipesToDisplay.length === 0) {
+                recipesGrid.innerHTML = '<div class="no-results">No recipes found. Try a different search or category.</div>';
+                return;
+            }
+
+            recipesGrid.innerHTML = recipesToDisplay.map(recipe => `
+                <div class="recipe-card">
+                    <span class="category-tag">${formatCategory(recipe.category)}</span>
+                    <h3>${recipe.name}</h3>
+                    <div class="ingredients">
+                        <h4>Ingredients</h4>
+                        <p>${recipe.ingredients}</p>
+                    </div>
+                    <div class="instructions">
+                        <h4>Instructions</h4>
+                        <p>${recipe.instructions}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Format category name for display
+        function formatCategory(category) {
+            const categoryMap = {
+                'asian': 'Asian',
+                'indian': 'Indian & South Asian',
+                'middle-eastern': 'Middle Eastern',
+                'european': 'European',
+                'latin': 'Latin American',
+                'african': 'African',
+                'desserts': 'Desserts'
+            };
+            return categoryMap[category] || category;
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
