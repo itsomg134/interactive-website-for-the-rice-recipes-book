@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Classic Fried Rice",
+    "category": "asian",
+    "ingredients": "3 cups cooked rice, 2 eggs, 1 cup mixed vegetables, 3 tbsp soy sauce, 2 tbsp oil, 2 cloves garlic, 1 onion",
+    "instructions": "Heat oil, scramble eggs and set aside. Stir-fry vegetables and garlic, add rice, soy sauce, and eggs. Cook for 5 minutes.",
+    "cookingTime": 20,
+    "difficulty": "easy"
+  },
+  {
+    "name": "Chicken Biryani",
+    "category": "indian",
+    "ingredients": "2 cups basmati rice, 1 lb chicken, 1 cup yogurt, 2 onions, 4 cloves garlic, 2-inch ginger, biryani masala, saffron, ghee",
+    "instructions": "Marinate chicken in yogurt and spices. Layer partially cooked rice with chicken. Cook on low heat until rice is fluffy and chicken is tender.",
+    "cookingTime": 60,
+    "difficulty": "hard"
+  }
+]
